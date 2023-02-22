@@ -1,0 +1,66 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+  </head>
+  <body>
+    <script>
+        AFRAME.registerComponent('orbit', {
+          schema: {
+            speed: {default: 1},
+            radius: {default: 10},
+          },
+      
+          init: function () {
+            this.time = 0;
+          },
+      
+          tick: function (time, delta) {
+            this.time += delta * this.data.speed;
+            const x = Math.sin(this.time / 1000) * this.data.radius;
+            const z = Math.cos(this.time / 1000) * this.data.radius;
+            const position = this.el.getAttribute('position');
+            this.el.setAttribute('position', {
+              x:  x,
+              y: 0,
+              z: z,
+            });
+          }
+          
+        });
+      </script>
+      
+      <a-scene light="defaultLightsEnabled: false" shadow="type: pcfsoft">
+        <a-sky src="images/eso0932a.jpg"></a-sky>
+      
+        <!-- Sun -->
+        <a-sphere radius="10" material="src: images/4k_sun.jpg" position="0 0 -50" animation__rotate="property: rotation; dur: 10000; easing: linear; loop: true; to: 0 360 0;" shadow="receive: false">
+            
+        </a-sphere>
+        <a-light type="point" color="white" intensity="2"></a-light>
+      
+        <!-- Mercury -->
+        <a-sphere radius="1" material="src: images/4k_mercury.jpg" position="20 0 -50" id="mercury" orbit="speed: 0.05; radius: 20;" animation__rotate="property: rotation; dur: 20000; easing: linear; loop: true; to: 0 360 0;"></a-sphere>
+      
+        <!-- Venus -->
+        <a-sphere radius="3" material="src: images/4k_moon.jpg" position="30 0 -50" id="venus" orbit="speed: 0.03; radius: 30;" animation__rotate="property: rotation; dur: 40000; easing: linear; loop: true; to: 0 360 0;"></a-sphere>
+      
+        <!-- Earth -->
+        <a-sphere radius="3" material="src: images/earthbump.jpg" position="40 0 -50" id="earth" orbit="speed: 0.02; radius: 40;" animation__rotate="property: rotation; dur: 60000; easing: linear; loop: true; to: 0 360 0;"></a-sphere>
+      
+        <!-- Mars -->
+        <a-sphere radius="2" material="src: images/4k_mars.jpg" position="50 0 -50" id="mars" orbit="speed: 0.01; radius: 50;" animation__rotate="property: rotation; dur: 80000; easing: linear; loop: true; to: 0 360 0;"></a-sphere>
+      
+        <!-- Jupiter -->
+        <a-sphere radius="10" material="src: images/4k_jupiter.jpg" position="70 0 -50" id="jupiter" orbit="speed: 0.005; radius: 70;" animation__rotate="property: rotation; dur: 120000; easing: linear; loop: true; to: 0 360 0;"></a-sphere>
+
+
+
+
+      </a-scene>
+      
+      
+      
+      
+
+  </body>
+</html>
