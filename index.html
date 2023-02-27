@@ -6,42 +6,43 @@
 
     
     <script>
-        AFRAME.registerComponent('orbit', {
-          schema: {
-            speed: {default: 1},
-            radius: {default: 10},
-          },
-      
-          init: function () {
-            this.time = 0;
-          },
-      
-          tick: function (time, delta) {
-            this.time += delta * this.data.speed;
-            const x = Math.sin(this.time / 1000) * this.data.radius;
-            const z = Math.cos(this.time / 1000) * this.data.radius;
-            const position = this.el.getAttribute('position');
-            this.el.setAttribute('position', {
-              x:  x,
-              y: 0,
-              z: z,
-            });
-          }
-          
-        });
+      var actualValues = [109, 0.3, 0.9, 1, 0.5, 12, 9, 4, 3.8, 0.1];
+      AFRAME.registerComponent('orbit', {
+        schema: {
+          speed: {default: 1},
+          radius: {default: 10},
+        },
+    
+        init: function () {
+          this.time = 0;
+        },
+    
+        tick: function (time, delta) {
+          this.time += delta * this.data.speed;
+          const x = Math.sin(this.time / 1000) * this.data.radius;
+          const z = Math.cos(this.time / 1000) * this.data.radius;
+          const position = this.el.getAttribute('position');
+          this.el.setAttribute('position', {
+            x:  x,
+            y: 0,
+            z: z,
+          });
+        }
+        
+      });
 
-        AFRAME.registerComponent('cursor-listener', {
-          init: function () {
-               this.el.addEventListener('mousedown', function (evt) {
-                var myEl = document.querySelector("#info");
-                myEl.style.opacity = 0.8;
-            });
-          }
-        });
+      AFRAME.registerComponent('cursor-listener', {
+        init: function () {
+              this.el.addEventListener('mousedown', function (evt) {
+              var myEl = document.querySelector("#info");
+              myEl.style.opacity = 0.8;
+          });
+        }
+      });
       </script>
       
       <a-scene>
-        <a-entity camera postion ="50 0 80" look-controls wasd-controls>
+        <a-entity camera="far: 100000;" position="0 30 300" look-controls wasd-controls="touchEnabled: true; fly: true; acceleration: 500;">
           <a-entity cursor="fuse: true; fuseTimeout: 500"
                     position="0 0 -1"
                     geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
@@ -55,26 +56,104 @@
             <!-- <a-box id="cancel" position="0 -1 -5" rotation="0 45 0" color="#FF0000" visible="false"></a-box> -->
       
         <!-- Sun -->
-        <!-- <a-entity light="type:point; castShadow:true; intensity:1;" position="0 0 -50"></a-entity> -->
-        <a-sphere cursor-listener radius="10" material="src: images/4k_sun.jpg" position="0 0 -50" animation__rotate="property: rotation; dur: 10000; easing: linear; loop: true; to: 0 360 0;" shadow="receive: false">
+        <a-sphere cursor-listener segments-height="100" segments-width="100" radius="109" material="src: images/4k_sun.jpg" position="0 0 0" animation__rotate="property: rotation; dur: 3600000; easing: linear; loop: true; to: 0 360 0;" shadow="receive: false">
           
         </a-sphere>
+
+        <!-- orbits -->
+        <a-cylinder
+        position="0 0 0"
+        radius="130"
+        height="0.2"
+        open-ended="true"
+        segments-height="100" segments-radial="100"
+        ></a-cylinder>
+        <a-cylinder
+        position="0 0 0"
+        radius="150"
+        height="0.2"
+        open-ended="true"
+        segments-height="100" segments-radial="100"
+        ></a-cylinder>
+        <a-cylinder
+        position="0 0 0"
+        radius="170"
+        height="0.2"
+        open-ended="true"
+        segments-height="100" segments-radial="100"
+        ></a-cylinder>
+        <a-cylinder
+        position="0 0 0"
+        radius="180"
+        height="0.2"
+        open-ended="true"
+        segments-height="100" segments-radial="100"
+        ></a-cylinder>
+        <a-cylinder
+        position="0 0 0"
+        radius="220"
+        height="0.2"
+        open-ended="true"
+        segments-height="100" segments-radial="100"
+        ></a-cylinder>
+        <a-cylinder
+        position="0 0 0"
+        radius="250"
+        height="0.2"
+        open-ended="true"
+        segments-height="100" segments-radial="100"
+        ></a-cylinder>
+        <a-cylinder
+        position="0 0 0"
+        radius="290"
+        height="0.2"
+        open-ended="true"
+        segments-height="100" segments-radial="100"
+        ></a-cylinder>
+        <a-cylinder
+        position="0 0 0"
+        radius="340"
+        height="0.2"
+        open-ended="true"
+        segments-height="100" segments-radial="100"
+        ></a-cylinder>
+        <a-cylinder
+        position="0 0 0"
+        radius="360"
+        height="0.2"
+        open-ended="true"
+        segments-height="100" segments-radial="100"
+        ></a-cylinder>
         
       
         <!-- Mercury -->
-        <a-sphere radius="1" material="src: images/4k_mercury.jpg" position="20 0 -50" id="mercury" orbit="speed: 0.05; radius: 20;" animation__rotate="property: rotation; dur: 20000; easing: linear; loop: true; to: 0 360 0;"></a-sphere>
+        <a-sphere radius="0.3" material="src: images/4k_mercury.jpg" position="130 0 0" id="mercury" orbit="speed: 0.05; radius: 130;" animation__rotate="property: rotation; dur: 580000; easing: linear; loop: true; to: 0 360 0;"></a-sphere>
       
         <!-- Venus -->
-        <a-sphere radius="3" material="src: images/2k_venus_surface.jpg" position="30 0 -50" id="venus" orbit="speed: 0.03; radius: 30;" animation__rotate="property: rotation; dur: 40000; easing: linear; loop: true; to: 0 360 0;"></a-sphere>
+        <a-sphere radius="0.9" material="src: images/2k_venus_surface.jpg" position="150 0 0" id="venus" orbit="speed: 0.03; radius: 150;" animation__rotate="property: rotation; dur: 2430000; easing: linear; loop: true; to: 0 360 0;"></a-sphere>
       
         <!-- Earth -->
-        <a-sphere radius="3" material="src: images/earthbumpmap.jpg" position="40 0 -50" id="earth" orbit="speed: 0.02; radius: 40;" animation__rotate="property: rotation; dur: 60000; easing: linear; loop: true; to: 0 360 0;"></a-sphere>
+        <a-sphere radius="1" material="src: images/earthbumpmap.jpg" position="170 0 0" id="earth" orbit="speed: 0.02; radius: 170;" animation__rotate="property: rotation; dur: 10000; easing: linear; loop: true; to: 0 360 0;"></a-sphere>
       
         <!-- Mars -->
-        <a-sphere radius="2" material="src: images/4k_mars.jpg" position="50 0 -50" id="mars" orbit="speed: 0.01; radius: 50;" animation__rotate="property: rotation; dur: 80000; easing: linear; loop: true; to: 0 360 0;"></a-sphere>
+        <a-sphere radius="0.5" material="src: images/4k_mars.jpg" position="180 0 0" id="mars" orbit="speed: 0.01; radius: 180;" animation__rotate="property: rotation; dur: 10000; easing: linear; loop: true; to: 0 360 0;"></a-sphere>
       
         <!-- Jupiter -->
-        <a-sphere radius="10" material="src: images/4k_jupiter.jpg" position="70 0 -50" id="jupiter" orbit="speed: 0.005; radius: 70;" animation__rotate="property: rotation; dur: 120000; easing: linear; loop: true; to: 0 360 0;"></a-sphere>
+        <a-sphere radius="11" material="src: images/4k_jupiter.jpg" position="220 0 0" id="jupiter" orbit="speed: 0.005; radius: 220;" animation__rotate="property: rotation; dur: 4000; easing: linear; loop: true; to: 0 360 0;"></a-sphere>
+
+        <!-- Saturn -->
+        <a-ring radius-inner="12" radius-outer="16" position="250 0 0" rotation="-80 0 0" orbit="speed: 0.0005; radius: 250;" width="3" material="src: images/saturn_ring.png; repeat: 5 1;" roughness="0.5"></a-ring>
+        <a-sphere radius="9" material="src: images/2k_saturn.jpg" position="250 0 0" id="saturn" orbit="speed: 0.0005; radius: 250;" animation__rotate="property: rotation; dur: 4000; easing: linear; loop: true; to: 0 360 0;"></a-sphere>
+
+        <!-- Uranus -->
+        <a-sphere radius="4" material="src: images/2k_uranus.jpg" position="290 0 0" id="uranus" orbit="speed: 0.0001; radius: 290;" animation__rotate="property: rotation; dur: 7200; easing: linear; loop: true; to: 0 360 0;"></a-sphere>
+
+        <!-- Neptune -->
+        <a-sphere radius="3.8" material="src: images/2k_neptune.jpg" position="340 0 0" id="neptune" orbit="speed: 0.00005; radius: 340;" animation__rotate="property: rotation; dur: 6700; easing: linear; loop: true; to: 0 360 0;"></a-sphere> 
+
+        <!-- Pluto -->
+        <a-sphere radius="0.1" material="src: images/2k_pluto.jpg" position="360 0 0" id="pluto" orbit="speed: 0.000005; radius: 360;" animation__rotate="property: rotation; dur: 63900; easing: linear; loop: true; to: 0 360 0;"></a-sphere> 
+
 
 
 
@@ -86,6 +165,7 @@
         <h3>Description</h3>
         <p id="planetName">Sun</p>
         <p id="planetDescription">The sun is the star at the center of the solar system and is the source of all life on Earth. It is a massive, fiery ball of gas that is approximately 109 times larger than Earth and about 93 million miles away. The sun's surface temperature is about 5,500 degrees Celsius and its core temperature is around 15 million degrees Celsius. The sun's energy is produced through nuclear fusion, which converts hydrogen into helium, releasing vast amounts of energy in the process. Its light and heat provide the energy for photosynthesis, driving the Earth's climate and weather patterns, and enabling all forms of life to thrive.</p>
+        
       </div>
 
       <script>
