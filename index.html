@@ -6,7 +6,29 @@
 
     
     <script>
-      var actualValues = [109, 0.3, 0.9, 1, 0.5, 12, 9, 4, 3.8, 0.1];
+      
+      const planets = {
+        "Sun": "The sun is the star at the center of the solar system and is the source of all life on Earth. It is a massive, fiery ball of gas that is approximately 109 times larger than Earth and about 93 million miles away. The sun's surface temperature is about 5,500 degrees Celsius and its core temperature is around 15 million degrees Celsius. The sun's energy is produced through nuclear fusion, which converts hydrogen into helium, releasing vast amounts of energy in the process. Its light and heat provide the energy for photosynthesis, driving the Earth's climate and weather patterns, and enabling all forms of life to thrive.",
+
+        "Mercury": "Mercury is the smallest planet in the solar system and the closest planet to the sun. It has a heavily cratered surface and no atmosphere, which means it experiences extreme temperature changes between its hot and cold sides.",
+      
+        "Venus": "Venus is the second planet from the sun and is known for its thick atmosphere, which is mostly made up of carbon dioxide. The planet's surface is rocky and covered in volcanoes and craters, and its thick atmosphere causes a greenhouse effect that makes it the hottest planet in the solar system.",
+      
+        "Earth": "Earth is the third planet from the sun and the only planet known to support life. It has a diverse range of ecosystems and is covered in water, which makes it unique compared to the other planets in the solar system.",
+      
+        "Mars": "Mars is the fourth planet from the sun and is often referred to as the 'Red Planet' because of its reddish appearance. It has a thin atmosphere and a rocky, cratered surface. Mars is also home to the largest volcano in the solar system, Olympus Mons, and the longest canyon in the solar system, Valles Marineris.",
+      
+        "Jupiter": "Jupiter is the largest planet in the solar system and is known for its distinctive stripes and swirling storms, including the famous Great Red Spot. It is a gas giant with no solid surface, and its massive size and gravity influence the orbits of other planets in the solar system.",
+      
+        "Saturn": "Saturn is the sixth planet from the sun and is known for its spectacular rings, which are made up of ice and rock particles. It is a gas giant with no solid surface, and its moons are some of the most interesting in the solar system.",
+      
+        "Uranus": "Uranus is the seventh planet from the sun and is known for its unique tilt, which causes it to spin on its side. It is a gas giant with a rocky core and a thick atmosphere of hydrogen, helium, and methane. Uranus is also home to several faint rings and many small moons.",
+      
+        "Neptune": "Neptune is the eighth planet from the sun and is the farthest planet in the solar system. It is a gas giant with a rocky core and a thick atmosphere of hydrogen, helium, and methane. Neptune has the strongest winds in the solar system, and its moon Triton is the coldest object ever measured in the solar system.",
+      
+        "Pluto": "Pluto is a dwarf planet located in the Kuiper Belt, a region of the solar system beyond Neptune. It was reclassified as a dwarf planet in 2006 and is the largest known object in the Kuiper Belt. Pluto has a thin atmosphere and a rocky, icy surface with several large mountains and a heart-shaped feature called Tombaugh Regio."
+      }
+      
       AFRAME.registerComponent('orbit', {
         schema: {
           speed: {default: 1},
@@ -34,15 +56,28 @@
       AFRAME.registerComponent('cursor-listener', {
         init: function () {
               this.el.addEventListener('mousedown', function (evt) {
-              var myEl = document.querySelector("#info");
-              myEl.style.opacity = 0.8;
+                var id = this.getAttribute('id');
+                var name = document.getElementById("planetName");
+                var desc = document.getElementById("planetDescription");
+                name.innerHTML = id;
+                desc.innerHTML = planets[id];
+                var myEl = document.querySelector("#info");
+                myEl.style.opacity = 0.8;
+                if(id=="Earth"){
+                  this.setAttribute("orbit",{
+                    speed: 0
+                  });
+                }
+              
           });
         }
       });
+
+
       </script>
       
       <a-scene>
-        <a-entity camera="far: 100000;" position="0 30 300" look-controls wasd-controls="touchEnabled: true; fly: true; acceleration: 500;">
+        <a-entity camera="far: 100000;" position="0 30 400" look-controls wasd-controls="touchEnabled: true; fly: true; acceleration: 500;">
           <a-entity cursor="fuse: true; fuseTimeout: 500"
                     position="0 0 -1"
                     geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
@@ -56,103 +91,105 @@
             <!-- <a-box id="cancel" position="0 -1 -5" rotation="0 45 0" color="#FF0000" visible="false"></a-box> -->
       
         <!-- Sun -->
-        <a-sphere cursor-listener segments-height="100" segments-width="100" radius="109" material="src: images/4k_sun.jpg" position="0 0 0" animation__rotate="property: rotation; dur: 3600000; easing: linear; loop: true; to: 0 360 0;" shadow="receive: false">
-          
-        </a-sphere>
+
+        <a-sphere cursor-listener id="Sun" segments-height="100" segments-width="100" radius="109" material="src: images/4k_sun.jpg" position="0 0 0" animation__rotate="property: rotation; dur: 360000; easing: linear; loop: true; to: 0 360 0;" shadow="receive: false"></a-sphere>
 
         <!-- orbits -->
         <a-cylinder
         position="0 0 0"
         radius="130"
-        height="0.2"
+        height="0.05"
         open-ended="true"
         segments-height="100" segments-radial="100"
         ></a-cylinder>
         <a-cylinder
         position="0 0 0"
         radius="150"
-        height="0.2"
+        height="0.05"
         open-ended="true"
         segments-height="100" segments-radial="100"
         ></a-cylinder>
         <a-cylinder
         position="0 0 0"
         radius="170"
-        height="0.2"
+        height="0.05"
         open-ended="true"
         segments-height="100" segments-radial="100"
         ></a-cylinder>
         <a-cylinder
         position="0 0 0"
         radius="180"
-        height="0.2"
+        height="0.05"
         open-ended="true"
         segments-height="100" segments-radial="100"
         ></a-cylinder>
         <a-cylinder
         position="0 0 0"
         radius="220"
-        height="0.2"
+        height="0.05"
         open-ended="true"
         segments-height="100" segments-radial="100"
         ></a-cylinder>
         <a-cylinder
         position="0 0 0"
         radius="250"
-        height="0.2"
+        height="0.05"
         open-ended="true"
         segments-height="100" segments-radial="100"
         ></a-cylinder>
         <a-cylinder
         position="0 0 0"
         radius="290"
-        height="0.2"
+        height="0.05"
         open-ended="true"
         segments-height="100" segments-radial="100"
         ></a-cylinder>
         <a-cylinder
         position="0 0 0"
         radius="340"
-        height="0.2"
+        height="0.05"
         open-ended="true"
         segments-height="100" segments-radial="100"
         ></a-cylinder>
         <a-cylinder
         position="0 0 0"
         radius="360"
-        height="0.2"
+        height="0.05"
         open-ended="true"
         segments-height="100" segments-radial="100"
         ></a-cylinder>
         
       
         <!-- Mercury -->
-        <a-sphere radius="0.3" material="src: images/4k_mercury.jpg" position="130 0 0" id="mercury" orbit="speed: 0.05; radius: 130;" animation__rotate="property: rotation; dur: 580000; easing: linear; loop: true; to: 0 360 0;"></a-sphere>
+
+        <a-sphere cursor-listener radius="0.3" material="src: images/4k_mercury.jpg" position="130 0 0" id="Mercury" orbit="speed: 0.0159; radius: 130;" animation__rotate="property: rotation; dur: 580000; easing: linear; loop: true; to: 0 360 0;"></a-sphere>
       
         <!-- Venus -->
-        <a-sphere radius="0.9" material="src: images/2k_venus_surface.jpg" position="150 0 0" id="venus" orbit="speed: 0.03; radius: 150;" animation__rotate="property: rotation; dur: 2430000; easing: linear; loop: true; to: 0 360 0;"></a-sphere>
+        <a-sphere cursor-listener radius="0.9" material="src: images/2k_venus_surface.jpg" position="150 0 0" id="Venus" orbit="speed: 0.0118; radius: 150;" animation__rotate="property: rotation; dur: 2430000; easing: linear; loop: true; to: 0 360 0;"></a-sphere>
       
         <!-- Earth -->
-        <a-sphere radius="1" material="src: images/earthbumpmap.jpg" position="170 0 0" id="earth" orbit="speed: 0.02; radius: 170;" animation__rotate="property: rotation; dur: 10000; easing: linear; loop: true; to: 0 360 0;"></a-sphere>
+
+        <a-sphere cursor-listener radius="1" material="src: images/earthbumpmap.jpg" position="170 0 0" id="Earth" orbit="speed: 0.01; radius: 170;" animation__rotate="property: rotation; dur: 10000; easing: linear; loop: true; to: 0 360 0;"></a-sphere>
       
         <!-- Mars -->
-        <a-sphere radius="0.5" material="src: images/4k_mars.jpg" position="180 0 0" id="mars" orbit="speed: 0.01; radius: 180;" animation__rotate="property: rotation; dur: 10000; easing: linear; loop: true; to: 0 360 0;"></a-sphere>
+        <a-sphere cursor-listener radius="0.5" material="src: images/4k_mars.jpg" position="180 0 0" id="Mars" orbit="speed: 0.00808; radius: 180;" animation__rotate="property: rotation; dur: 10000; easing: linear; loop: true; to: 0 360 0;"></a-sphere>
       
         <!-- Jupiter -->
-        <a-sphere radius="11" material="src: images/4k_jupiter.jpg" position="220 0 0" id="jupiter" orbit="speed: 0.005; radius: 220;" animation__rotate="property: rotation; dur: 4000; easing: linear; loop: true; to: 0 360 0;"></a-sphere>
+        <a-sphere cursor-listener radius="11" material="src: images/4k_jupiter.jpg" position="220 0 0" id="Jupiter" orbit="speed: 0.00439; radius: 220;" animation__rotate="property: rotation; dur: 4000; easing: linear; loop: true; to: 0 360 0;"></a-sphere>
 
         <!-- Saturn -->
-        <a-ring radius-inner="12" radius-outer="16" position="250 0 0" rotation="-80 0 0" orbit="speed: 0.0005; radius: 250;" width="3" material="src: images/saturn_ring.png; repeat: 5 1;" roughness="0.5"></a-ring>
-        <a-sphere radius="9" material="src: images/2k_saturn.jpg" position="250 0 0" id="saturn" orbit="speed: 0.0005; radius: 250;" animation__rotate="property: rotation; dur: 4000; easing: linear; loop: true; to: 0 360 0;"></a-sphere>
+        <a-ring id="Saturn_Ring" radius-inner="12" radius-outer="16" position="250 0 0" rotation="-80 0 0" orbit="speed: 0.00325; radius: 250;" width="3" material="src: images/saturn_ring.png; repeat: 5 1;" roughness="0.5"></a-ring>
+        <a-sphere cursor-listener radius="9" material="src: images/2k_saturn.jpg" position="250 0 0" id="Saturn" orbit="speed: 0.00325; radius: 250;" animation__rotate="property: rotation; dur: 4000; easing: linear; loop: true; to: 0 360 0;"></a-sphere>
 
         <!-- Uranus -->
-        <a-sphere radius="4" material="src: images/2k_uranus.jpg" position="290 0 0" id="uranus" orbit="speed: 0.0001; radius: 290;" animation__rotate="property: rotation; dur: 7200; easing: linear; loop: true; to: 0 360 0;"></a-sphere>
+
+        <a-sphere cursor-listener radius="4" material="src: images/2k_uranus.jpg" position="290 0 0" id="Uranus" orbit="speed: 0.00228; radius: 290;" animation__rotate="property: rotation; dur: 7200; easing: linear; loop: true; to: 0 360 0;"></a-sphere>
 
         <!-- Neptune -->
-        <a-sphere radius="3.8" material="src: images/2k_neptune.jpg" position="340 0 0" id="neptune" orbit="speed: 0.00005; radius: 340;" animation__rotate="property: rotation; dur: 6700; easing: linear; loop: true; to: 0 360 0;"></a-sphere> 
+        <a-sphere cursor-listener radius="3.8" material="src: images/2k_neptune.jpg" position="340 0 0" id="Neptune" orbit="speed: 0.002; radius: 340;" animation__rotate="property: rotation; dur: 6700; easing: linear; loop: true; to: 0 360 0;"></a-sphere> 
 
         <!-- Pluto -->
-        <a-sphere radius="0.1" material="src: images/2k_pluto.jpg" position="360 0 0" id="pluto" orbit="speed: 0.000005; radius: 360;" animation__rotate="property: rotation; dur: 63900; easing: linear; loop: true; to: 0 360 0;"></a-sphere> 
+        <a-sphere cursor-listener radius="0.1" material="src: images/2k_pluto.jpg" position="360 0 0" id="Pluto" orbit="speed: 0.00157; radius: 360;" animation__rotate="property: rotation; dur: 63900; easing: linear; loop: true; to: 0 360 0;"></a-sphere> 
 
 
 
@@ -163,15 +200,37 @@
       <div id="info">
         <button onclick="closeInfo()" id="closebtbn" style="font-size: 24px;font-weight: bold;">Close</button>
         <h3>Description</h3>
-        <p id="planetName">Sun</p>
-        <p id="planetDescription">The sun is the star at the center of the solar system and is the source of all life on Earth. It is a massive, fiery ball of gas that is approximately 109 times larger than Earth and about 93 million miles away. The sun's surface temperature is about 5,500 degrees Celsius and its core temperature is around 15 million degrees Celsius. The sun's energy is produced through nuclear fusion, which converts hydrogen into helium, releasing vast amounts of energy in the process. Its light and heat provide the energy for photosynthesis, driving the Earth's climate and weather patterns, and enabling all forms of life to thrive.</p>
-        
+        <p id="planetName"></p>
+        <p id="planetDescription"></p>
+        <label for="xslider-slider" class="slider-label">X</label>
+        <input type="range" id="xslider" min="0" max="100" value="40" class="slider">
+        <span id="slider-x" class="slider-value">40</span>
+        <br>
+        <label for="yslider-slider" class="slider-label">Y</label>
+        <input type="range" id="yslider" min="0" max="100" value="40" class="slider">
+        <span id="slider-y" class="slider-value">40</span>
+        <br>
+        <label for="zslider-slider" class="slider-label">Z</label>
+        <input type="range" id="zslider" min="0" max="100" value="40" class="slider">
+        <span id="slider-z" class="slider-value">40</span>
+        <br>
+        <label for="scale-slider" class="slider-label">Scale</label>
+        <input type="range" id="scaleslider" min="0" max="100" value="40" class="slider">
+        <span id="slider-scale" class="slider-value">40</span>
       </div>
 
       <script>
         function closeInfo(){
           var myEl = document.querySelector("#info");
           myEl.style.opacity = 0;
+          var name = document.getElementById("planetName");
+          if(name.innerHTML == "Earth"){
+            document.getElementById("Earth").setAttribute('orbit',{
+              speed: 0.02,
+              radius: 170
+            });
+          } 
+
         }
       </script>
 
@@ -196,6 +255,168 @@
         }
 
       </style>
+
+      <style>
+        .slider {
+          -webkit-appearance: none;
+          width: 100%;
+          height: 10px;
+          border-radius: 5px;  
+          background: #ddd;
+          outline: none;
+          opacity: 0.7;
+          -webkit-transition: .2s;
+          transition: opacity .2s;
+        }
+    
+        .slider:hover {
+          opacity: 1;
+        }
+    
+        .slider::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          appearance: none;
+          width: 20px;
+          height: 20px;
+          border-radius: 50%; 
+          background: #4caf50;
+          cursor: pointer;
+        }
+    
+        .slider::-moz-range-thumb {
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          background: #4caf50;
+          cursor: pointer;
+        }
+    
+        .slider-container {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 10px;
+        }
+    
+        .slider-value {
+          margin-left: 10px;
+          font-weight: bold;
+        }
+    
+        .slider-label {
+          font-weight: bold;
+          margin-right: 10px;
+        }
+      </style>
+
+      <script>
+        const slider1 = document.getElementById("xslider");
+        const sliderValue1 = document.getElementById("slider-x");
+        var defaultRad = {
+          "Sun":109, 
+          "Mercury":0.3, 
+          "Venus":0.9, 
+          "Earth":1, 
+          "Mars":0.5, 
+          "Jupiter":12, 
+          "Saturn":9, 
+          "Uranus":4, 
+          "Neptune":3.8, 
+          "Pluto":0.1,
+        "i":12,
+      "o":16};
+        var defaultPos = {
+          "Sun":  {x: 0, y: 0, z: 0},
+  
+          "Mercury": {x: 130, y: 0, z: 0},
+        
+          "Venus": {x: 150, y: 0, z: 0},
+        
+          "Earth": {x: 170, y: 0, z: 0},
+        
+          "Mars": {x: 180, y: 0, z: 0},
+        
+          "Jupiter": {x: 220, y: 0, z: 0},
+        
+          "Saturn": {x: 250, y: 0, z: 0},
+        
+          "Uranus": {x: 290, y: 0, z: 0},
+        
+          "Neptune": {x: 340, y: 0, z: 0},
+        
+          "Pluto": {x: 360, y: 0, z: 0}
+        };
+
+        
+    
+        sliderValue1.innerHTML = slider1.value;
+    
+        slider1.oninput = function() {
+          var name = document.getElementById("planetName");
+          var sphere = document.getElementById(name.innerHTML);
+          sliderValue1.innerHTML = this.value;
+          var pos = defaultPos[name.innerHTML];
+          var temp = {x:pos.x+ this.value, y:pos.y , z:pos.z};
+
+          sphere.setAttribute('position', temp);
+        };
+
+        const slider2 = document.getElementById("yslider");
+        const sliderValue2 = document.getElementById("slider-y");
+    
+        sliderValue2.innerHTML = slider2.value;
+    
+        slider2.oninput = function() {
+          var name = document.getElementById("planetName");
+          var sphere = document.getElementById(name.innerHTML);
+          sliderValue2.innerHTML = this.value;
+          var pos = defaultPos[name.innerHTML];
+          var temp = {x:pos.x, y:pos.y + this.value, z:pos.z};
+
+          sphere.setAttribute('position', temp);
+        };
+
+        const slider3 = document.getElementById("zslider");
+        const sliderValue3 = document.getElementById("slider-z");
+    
+        sliderValue3.innerHTML = slider3.value;
+    
+        slider3.oninput = function() {
+          var name = document.getElementById("planetName");
+          var sphere = document.getElementById(name.innerHTML);
+          sliderValue3.innerHTML = this.value;
+          var pos = defaultPos[name.innerHTML];
+          var temp = {x:pos.x, y:pos.y , z:pos.z+ this.value};
+
+          sphere.setAttribute('position', temp);
+        };
+
+        const slider4 = document.getElementById("scaleslider");
+        const sliderValue4 = document.getElementById("slider-scale");
+    
+        sliderValue4.innerHTML = slider4.value;
+    
+        slider4.oninput = function() {
+          var name = document.getElementById("planetName");
+          var sphere = document.getElementById(name.innerHTML);
+          sliderValue4.innerHTML = this.value;
+          if(name.innerHTML == "Saturn"){
+            var sphereR = document.getElementById("Saturn_Ring");
+            var t = parseInt(defaultRad[name.innerHTML]) + parseInt(this.value);
+            var i = parseInt(defaultRad["i"]) + parseInt(this.value);
+            var o = parseInt(defaultRad["o"]) + parseInt(this.value);
+            sphere.setAttribute('radius', t.toString());
+            sphereR.setAttribute("radius-inner", i.toString());
+            sphereR.setAttribute("radius-outer", o.toString());
+          }
+          else {
+            var t = parseInt(defaultRad[name.innerHTML]) + parseInt(this.value);
+            sphere.setAttribute('radius', t.toString());
+            
+          }
+          
+        };
+      </script>
       
       
 
